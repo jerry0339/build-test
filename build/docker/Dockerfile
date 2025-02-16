@@ -1,6 +1,7 @@
-FROM amazoncorretto:17.0.7-alpine
-CMD ["./gradlew", "clean", "build"]
-ARG JAR_FILE_PATH=*.jar
-COPY ${JAR_FILE_PATH} app.jar
+FROM openjdk:17
+# CMD ["./gradlew", "clean", "build"]
+COPY ./member-service-1.0.0-SNAPSHOT.jar /usr/src/myapp/member-service-1.0.0.jar
+ENTRYPOINT ["java", "-jar", "/usr/src/myapp/member-service-1.0.0.jar"]
+# ENTRYPOINT ["java", "-Dspring.profiles.active=${spring_profiles_active}", "-Dapplication.role=${application_role}", "-Dpostgresql.filepath=${postgresql_filepath}", "-jar", "/usr/src/myapp/member-service-1.0.0.jar"]
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "app.jar"]
+WORKDIR /usr/src/myapp
